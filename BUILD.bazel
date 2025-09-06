@@ -1,0 +1,17 @@
+load("@aspect_rules_py//py:defs.bzl", "py_venv")
+load("@rules_python//python:pip.bzl", "compile_pip_requirements")
+
+compile_pip_requirements(
+    name = "requirements",
+    src = "requirements.in",
+    extra_args = ["-v"],
+    requirements_txt = "requirements.txt",
+)
+
+py_venv(
+    name = "venv",
+    package_collisions = "warning",
+    deps = [
+        "@pip//mlflow",
+    ],
+)
